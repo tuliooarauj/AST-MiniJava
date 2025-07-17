@@ -10,6 +10,13 @@ from astminijava import *
 program = Program(
     main_class=MainClass("Main"),
     classes=[
-        # Adicione aqui o restante...
+        ClassDecl(
+            name="Point",
+            superclass=None,
+            var_decls=[
+                VarDecl(Type("int"), "x"),
+                VarDecl(Type("int"), "y")
+            ]
+        )
     ]
 )

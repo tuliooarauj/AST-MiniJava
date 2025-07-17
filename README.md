@@ -1,14 +1,19 @@
-Este arquivo deve conter uma explicação clara e objetiva das decisões que você tomou ao modelar a Árvore de Sintaxe Abstrata (AST) para MiniJava.
+# Justificativa de Modelagem da AST para MiniJava
 
-O que você deve abordar:
-Quais elementos da gramática foram representados diretamente como classes na AST? Explique quais você considerou relevantes e por quê.
+## O que foi representado ou omitido?
 
-O que foi omitido na sua modelagem da AST e qual o motivo?
+A modelagem da AST buscou representar apenas os elementos semânticos relevantes da linguagem MiniJava. Foram omitidos todos os elementos puramente sintáticos, como símbolos `{`, `}`, `;`, e palavras-chave redundantes como `public static void main`.
 
-Como você representou listas e elementos opcionais?
+Por exemplo, no caso do método `main`, apenas seu corpo (a instrução `System.out.println();`) foi mantido como uma instância de `PrintStatement`, que indica uma chamada de impressão sem argumentos (visto que a gramática não define parâmetros).
 
-Você utilizou herança entre classes da AST? Em caso positivo, explique a motivação.
+## Modelagem de listas, herança e elementos opcionais
 
-Houve dificuldades específicas ao tentar representar partes da gramática na AST? Descreva como lidou com esses pontos.
+Listas, como as declarações de variáveis em uma classe, foram modeladas como listas Python (`List[VarDecl]`).
 
-Sinta-se à vontade para incluir diagramas, exemplos ou trechos de código se achar necessário.
+Elementos opcionais, como a herança (`extends IDENTIFIER`), foram representados por campos opcionais (`superclass: Optional[str]`). Se a classe não herda de outra, o valor é `None`.
+
+Houve a possibilidade de utilizar herança para tratar tipos ou expressões, mas dada a simplicidade da gramática, optou-se por não aplicar herança extensiva neste ponto.
+
+## Conclusão
+
+A estrutura da AST foi mantida fiel à gramática fornecida, focando na clareza e na representação dos elementos essenciais do programa. O uso de Python e suas funcionalidades como `Optional` e `List` permitiu uma modelagem limpa e extensível.
